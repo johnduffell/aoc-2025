@@ -88,9 +88,28 @@ L82"""
 
   }
 
+  object partBOptimised {
+
+    val movementsGrouped = movements.foldLeft(List.empty[Int]) {
+      case (prev :: rest, next) if prev < 0 == next < 0 => (prev + next) :: rest
+      case (rest, next) => next :: rest
+    }.reverse
+
+    val totalDistance = movementsGrouped.foldLeft(50) {
+      case (pos, amount) =>
+        val howFarIntoTheBlock = pos % 100
+        val howFarNeedToBe = if (howFarIntoTheBlock != 0) 100 - howFarIntoTheBlock else 0
+        val fakePos = ((pos / 100) * 100) + howFarNeedToBe
+        fakePos + Math.abs(amount)
+    }
+
+    val result = totalDistance / 100
+  }
+
   @main
   def day1() = {
     println(partA.result)
     println(partB.result)
+    println(partBOptimised.result)
   }
 }
