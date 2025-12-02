@@ -19,7 +19,7 @@ object Day2 extends App {
       res <- start.toLong to end.toLong
     } yield res
 
-  val result1 = idsToCheck
+  def result1 = idsToCheck
     .filter { id =>
       val str = id.toString
       if (str.length % 2 == 1) false else {
@@ -29,9 +29,9 @@ object Day2 extends App {
     }
     .sum
 
-  println(result1)
+  p(result1)
 
-  val result2 = idsToCheck
+  def result2 = idsToCheck
     .filter { id =>
       val str = id.toString
       val firstChar = str(0)
@@ -50,6 +50,19 @@ object Day2 extends App {
     }
     .sum
 
-  println(result2)
+  p(result2)
+
+  def result2Optimised = idsToCheck
+    .filter { id =>
+      val str = id.toString
+      (1 to str.length / 2).exists { nextLocation =>
+        str
+          .sliding(nextLocation, nextLocation)
+          .toSet.size == 1
+      }
+    }
+    .sum
+
+  p(result2Optimised)
 
 }

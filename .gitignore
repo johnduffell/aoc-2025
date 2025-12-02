@@ -1,5 +1,4 @@
 target/
 /.idea/
 /.bsp
-/src/main/scala/Data.scala
 /src/main/resources/
