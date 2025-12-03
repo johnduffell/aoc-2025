@@ -5,9 +5,10 @@ def datal(num: Int): String = {
 }
 
 def p[U](f: => U): U = {
-  val start = System.currentTimeMillis()
+  (0 until 100).foreach(_ => f)
+  val start = System.nanoTime()
   val u = f
-  val time = System.currentTimeMillis() - start
+  val time = ((System.nanoTime() - start)/1000)/1000d
   println(s"$time ms: $u")
   u
 }
